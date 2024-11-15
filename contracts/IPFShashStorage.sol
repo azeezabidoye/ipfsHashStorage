@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.2;
+pragma solidity ^0.8.27;
 
 contract IPFShashStorage {
     struct File {
@@ -12,7 +12,7 @@ contract IPFShashStorage {
     function upload(string memory fileName, string memory ipfsHash) public {
         require(
             bytes(files[fileName].ipfsHash).length == 0,
-            "File already exsits"
+            "File already exists"
         );
         files[fileName] = File(fileName, ipfsHash);
     }
