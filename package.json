@@ -15,5 +15,8 @@
     "node-fetch": "^3.3.2",
     "path": "^0.12.7",
     "web3.storage": "^4.5.5"
+  },
+  "devDependencies": {
+    "hardhat-deploy": "^0.14.0"
   }
 }

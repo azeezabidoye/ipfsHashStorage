@@ -1,5 +1,6 @@
 // require("@nomicfoundation/hardhat-toolbox");
 require("dotenv").config();
+require("hardhat-deploy");
 
 const { PRIVATE_KEY, RPC_URL } = process.env;
 
