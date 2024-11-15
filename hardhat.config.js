@@ -17,4 +17,9 @@ module.exports = {
       gasPrice: 2000000000,
     },
   },
+  namedAccounts: {
+    deployer: {
+      default: 0,
+    },
+  },
 };

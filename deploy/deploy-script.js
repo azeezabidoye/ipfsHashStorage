@@ -1,14 +1,12 @@
-async function main() {
-  const IPFShashStorage = await ethers.getContractFactory("IPFShashStorage");
-
-  // Start deployment, returning a promise that resolves to a contract object
-  const IPFShashStorage_ = await IPFShashStorage.deploy();
-  console.log("Contract address:", IPFShashStorage_.address);
-}
-
-main()
-  .then(() => process.exit(0))
-  .catch((error) => {
-    console.error(error);
-    process.exit(1);
+module.exports = async ({ getNamedAccounts, deployments }) => {
+  const { deploy, log } = deployments;
+  const { deployer } = await getNamedAccounts();
+  const args = [];
+  await deploy("IPFShashStorage", {
+    contract: "IPFShashStorage",
+    args: args,
+    from: deployer,
+    log: true,
   });
+};
+module.exports.tags = ["IPFShashStorage"];
