@@ -1,0 +1,36 @@
+{
+  "language": "Solidity",
+  "sources": {
+    "contracts/IPFShashStorage.sol": {
+      "content": "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.27;\n\ncontract IPFShashStorage {\n    struct File {\n        string fileName;\n        string ipfsHash;\n    }\n\n    mapping(string => File) private files;\n\n    function upload(string memory fileName, string memory ipfsHash) public {\n        require(\n            bytes(files[fileName].ipfsHash).length == 0,\n            \"File already exists\"\n        );\n        files[fileName] = File(fileName, ipfsHash);\n    }\n\n    function getIPFSHash(\n        string memory fileName\n    ) public view returns (string memory) {\n        require(bytes(files[fileName].ipfsHash).length > 0, \"File not found\");\n        return files[fileName].ipfsHash;\n    }\n\n    function isFileStored(string memory fileName) public view returns (bool) {\n        return bytes(files[fileName].ipfsHash).length > 0;\n    }\n}\n"
+    }
+  },
+  "settings": {
+    "evmVersion": "paris",
+    "optimizer": {
+      "enabled": false,
+      "runs": 200
+    },
+    "outputSelection": {
+      "*": {
+        "*": [
+          "abi",
+          "evm.bytecode",
+          "evm.deployedBytecode",
+          "evm.methodIdentifiers",
+          "metadata",
+          "devdoc",
+          "userdoc",
+          "storageLayout",
+          "evm.gasEstimates"
+        ],
+        "": [
+          "ast"
+        ]
+      }
+    },
+    "metadata": {
+      "useLiteralContent": true
+    }
+  }
+}
