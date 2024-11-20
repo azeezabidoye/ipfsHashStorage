@@ -3,6 +3,7 @@ const fileUpload = require("express-fileupload");
 const { Web3Storage, getFilesFromPath } = require("web3.storage");
 const path = require("path");
 const ethers = require("ethers");
+require("dotenv").config();
 
 const app = express();
 app.use(express.static(__dirname));
@@ -40,5 +41,11 @@ app.post("uploadData", async (req, res) => {
     const cid = storage.put(files);
     console.log(`IPFS: ${cid}`);
     return cid;
+  }
+
+  async function storeDataInBlockchain(hash) {
+    const RPC_URL = process.env.RPC_URL;
+    const PRIVATE_KEY = process.env.PRIVATE_KEY;
+    const CONTRACT_ADDRESS_1 = process.env.CONTRACT_ADDRESS;
   }
 });
