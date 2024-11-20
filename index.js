@@ -27,7 +27,18 @@ app.post("uploadData", async (req, res) => {
       if (error) {
         res.status(500).send(error);
       }
+      console.log("File uploaded to server succesfully!");
     });
-    console.log("File uploaded to server succesfully!");
+  }
+
+  async function uploadDataToIPFS() {
+    const token =
+      "MgCZgdznLINO5KLnqoTqAGLpDodjocXB9LPDBImTlEe6VoO0BmBSusup7Ca92uDlON2oDf027wmUZo7ex57QzF1tU2I0=";
+    const storage = new Web3Storage({ token: token });
+    const files = await getFilesFromPath(__dirname + `/${filename}`);
+    console.log("Uploading files to IPFS...please wait!");
+    const cid = storage.put(files);
+    console.log(`IPFS: ${cid}`);
+    return cid;
   }
 });
