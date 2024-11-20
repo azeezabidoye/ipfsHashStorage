@@ -75,6 +75,22 @@ app.post("uploadData", async (req, res) => {
       await tx.wait();
       const storedHash = await StorageContract.getIPFShash(name);
       res.send(`IPFS hash is stored in the smart contract: ${storedHash}`);
+    } else {
+      console.log("Data is already stored for this file name!");
+      const IPFSHash = await StorageContract.getIPFShash(name);
+      res.send(`The stored hash is: ${IPFSHash}`);
     }
   }
+
+  await moveFileToServer();
+
+  await new Promise((resolve) => setTimeout(resolve, 3000));
+
+  let hash = uploadDataToIPFS();
+
+  await storeDataInBlockchain(hash);
+});
+
+app.listen(port, () => {
+  console.log(`App is listening on port ${port}`);
 });
