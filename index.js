@@ -47,5 +47,21 @@ app.post("uploadData", async (req, res) => {
     const RPC_URL = process.env.RPC_URL;
     const PRIVATE_KEY = process.env.PRIVATE_KEY;
     const CONTRACT_ADDRESS_1 = process.env.CONTRACT_ADDRESS;
+
+    // Contract ABI
+    const {
+      abi,
+    } = require("./artifacts/contracts/IPFShashStorage.sol/IPFShashStorage.json");
+    const provider = new ethers.providers.JsonRpcProvider(RPC_URL);
+
+    // It calculates the blockchain address from Private Key
+    const signer = new ethers.Wallet(PRIVATE_KEY, provider);
+    console.log(signer);
+
+    const StorageContract = new ethers.Contract(
+      CONTRACT_ADDRESS_1,
+      abi,
+      signer
+    );
   }
 });
