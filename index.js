@@ -63,5 +63,18 @@ app.post("uploadData", async (req, res) => {
       abi,
       signer
     );
+
+    // Convert Hash to string
+    let _hash = hash.toString();
+
+    const isStored = await StorageContract.isFileStored(name);
+
+    if (isStored == false) {
+      console.log("Storing the IPFS hash...");
+      const tx = await StorageContract.upload(name, _hash);
+      await tx.wait();
+      const storedHash = await StorageContract.getIPFShash(name);
+      res.send(`IPFS hash is stored in the smart contract: ${storedHash}`);
+    }
   }
 });
